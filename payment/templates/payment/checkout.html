@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'payment/styles/checkout.css' %}">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <button id="checkout-button">Checkout</button>
+
+  <script>
+    const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+
+    document.getElementById("checkout-button").addEventListener("click", function () {
+      fetch("/create-checkout-session", {
+        method: "POST",
+        // headers: {
+        //   "X-CSRFToken": "{{ csrf_token }}"
+        // }
+      })
+      .then(response => response.json())
+      .then(session => {
+        console.log(session);
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      }).catch(error =>{
+        console.log("Error Occured: ", error);
+      })
+    });
+  </script>
+</body>
+</html>

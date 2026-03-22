@@ -1,0 +1,134 @@
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            }
+
+            .navbar {
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            }
+
+            .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+
+            .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0a4f8f;
+            cursor: pointer;
+            }
+
+            .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            }
+
+            .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s ease;
+            }
+
+            .nav-menu a:hover {
+            color: #0a4f8f;
+            }
+
+            .register-btn {
+            padding: 8px 18px;
+            background: #0a4f8f;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            }
+
+            .register-btn:hover {
+            background: #083d6d;
+            }
+
+            /* Mobile */
+
+            .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            }
+
+            @media (max-width: 900px) {
+            .nav-menu {
+                position: absolute;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 20px 0;
+                transition: 0.3s ease;
+              }
+              
+              .nav-menu.active {
+                left: 0;
+                padding-left: 32px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .register-btn {
+                display: none;
+            }
+          }
+    </style>
+
+    <nav class="navbar">
+      <div class="nav-container">
+
+        <!-- Logo -->
+        <div id="logo" class="logo">
+          AIMSD Africa
+        </div>
+
+        <!-- Menu -->
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Conference</a></li>
+          <li><a href="#">Exhibitors</a></li>
+          <li><a href="#">Speakers</a></li>
+          <li><a href="#">Schedule</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+
+        <!-- CTA -->
+        <a href="/registration" class="register-btn">Register Now</a>
+
+        <!-- Mobile Toggle -->
+        <div class="hamburger" id="hamburger">
+          ☰
+        </div>
+    </div>
+  </nav>
+
+  <script>
+  const navmenu = Array.from(document.getElementsByClassName("nav-menu"));
+  document.getElementById("hamburger").addEventListener("click", ()=> navmenu[0].classList.toggle("active"));
+  document.getElementById('logo').addEventListener('click', ()=> window.location.href = "/");
+</script>

@@ -1,0 +1,8 @@
+__pycache__/
+/__pycache__
+.env
+*.sqlite2
+*.mysql
+*.txt
+config.py
+settings.py

@@ -1,0 +1,151 @@
+<!Doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <title>AIMSDA | Registration</title>
+        <link rel="stylesheet" href="{% static 'payment/styles/registration.css'  %}">
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            const stripe = Stripe("{{STRIPE_PUBLISHABLE_KEY}}");
+        </script>
+        <script src="{% static 'payment/scripts/stripe.js' %}" defer></script>
+        
+    </head>
+    <body>
+        {% include "./partials/navbar.html" %}
+
+        <!-- <a href="{% url 'payment:index' %}">
+            <div id="home-icon">
+                <img src="{% static 'payment/images/home-icon.png' %}" alt="">
+            </div>
+        </a> -->
+        <section id="top-banner">
+            <div id="top-banner-title">
+                <h1>
+                    AIMSDA Conference registration Portal
+                </h1>
+
+            </div>
+
+        </section>
+
+        <section id="reg">
+            <div id="registration">
+                <form
+                hx-trigger="submit"  hx-target="#target"  hx-swap ="innerText"  hx-on::after-request="if(event.detail.successful) this.reset()"
+                >
+                </form>
+                <form id="form">
+                    {% csrf_token %}
+                    <div id="registration-heading">
+                        <p>Register for the Conference</p>
+                    </div>
+                    <div id="container">
+                        <div id="container-name">
+                            <label for="name">
+                                Full Name
+                            </label>
+                            <input type="text" id="name" name="name" class="form-input">
+                        </div>
+                        <div id="container-email">
+                            <label for="email">
+                                Email
+                            </label>
+                            <input type="email" id="email" name="email" class="form-input">
+                        </div>
+                        <div id="container-address">
+                            <label for="">
+                                Address
+                            </label>
+                            <input type="text" id="address" name="address" class="form-input">
+                        </div>
+                        <div id="container-organization">
+                            <label for="">
+                                Organization
+                            </label>
+                            <input type="text" id="organization" name="organization" class="form-input">
+                        </div>
+                        <div id="container-package">
+                            <label for="package">
+                                Select Registration Package
+                            </label>
+                            <div id="package">
+                                <div id="package-silver" class="package-card">
+                                    <p class="package-label">
+                                        Silver Package
+                                    </p>
+                                    <p>
+                                        Covers participation only
+                                    </p>
+                                </div>
+                                <div id="package-gold" class="package-card">
+                                    <p class="package-label">
+                                        Gold Package
+                                    </p>
+                                    <p>
+                                        Covers participation, feeding and dinner
+                                    </p>
+                                </div>
+                                <div id="package-diamond" class="package-card">
+                                    <p class="package-label">
+                                        Diamond Package
+                                    </p>
+                                    <p>
+                                        Covers participation, accommodation, feeding and dinner
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="container-request">
+                            <label for="requests">
+                                Special Requests / Dietary Requirements
+                            </label>
+                            <textarea name="requests" id="requests" rows="5"></textarea>
+                        </div>
+                        <div id="selected">
+                            <input type="hidden" id="selected-package" name="selected-package"  required>
+                        </div>
+                        <div id="button-container">
+                            <button id="submit" type="button">
+                                Complete registration
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+            
+            <div id="target">
+            </div>
+            <div>
+                {% include "./partials/footer.html" %}
+            </div>    
+        </body>
+        <script>
+        let packages = document.getElementsByClassName("package-card");
+        let labels = document.getElementsByClassName("package-label");
+
+        const packagesArray= Array.from(packages);
+        const labelsArray = Array.from(labels);
+
+        const selectedPackage = document.getElementById("selected-package");
+
+        packagesArray.forEach((package, index) => package.addEventListener('click', () => {
+            packagesArray.forEach(pack => pack.classList.remove("active"));
+            package.classList.add("active");
+            selectedPackage.value =  labelsArray[index].innerText;
+        }
+        ))
+
+// 
+// 
+            const hamburger = document.getElementById("hamburger");
+        const navMenu = document.getElementById("navMenu");
+        
+        hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        });
+    </script>
+</html>

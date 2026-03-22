@@ -1,0 +1,19 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 2rem;
+}
+
+#checkout-button {
+    height: 5rem;
+    width: 20rem;
+    padding: 10px;
+    background-color: rgb(137, 231, 137);
+    font-size: 2rem;
+    font-weight: 800;
+    cursor: progress;
+}

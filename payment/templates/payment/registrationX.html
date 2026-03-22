@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> AIMSDA | Registration </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'payment/styles/registration.css' %}" >
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f9;
+        }
+
+        header {
+            background: #0c4b33;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #0c4b33;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .package-card {
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .package-card:hover {
+            border-color: #0c4b33;
+        }
+
+        .package-card.active {
+            border-color: #0c4b33;
+            background: #e9f5f0;
+        }
+
+        .summary-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #0c4b33;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #083624;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AIMSDA</h1>
+    <h3>Conference Registration Portal</h3>
+</header>
+
+<div class="container">
+    <h2>Register for the Conference</h2>
+
+    <form method="POST" action="{% url 'payment:registration' %}" id="registrationForm">
+        {% csrf_token %}
+
+        <!-- Personal Information -->
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="full_name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label>Organization</label>
+            <input type="text" name="organization">
+        </div>
+
+        <!-- Package Selection -->
+        <div class="form-group">
+            <label>Select Registration Package</label>
+
+            <div class="packages">
+                <div class="package-card" onclick="selectPackage('silver')">
+                    <h3>Silver Package</h3>
+                    <p>Covers participation only</p>
+                </div>
+
+                <div class="package-card" onclick="selectPackage('gold')">
+                    <h3>Gold Package</h3>
+                    <p>Covers participation, feeding and dinner</p>
+                </div>
+
+                <div class="package-card" onclick="selectPackage('diamond')">
+                    <h3>Diamond Package</h3>
+                    <p>Covers participation, accommodation, feeding and dinner</p>
+                </div>
+            </div>
+
+            <input type="hidden" name="package" id="selectedPackage" required>
+        </div>
+
+        <!-- Accommodation Details (Only for Diamond) -->
+        <div id="accommodationSection" class="hidden">
+            <div class="form-group">
+                <label>Arrival Date</label>
+                <input type="date" name="arrival_date">
+            </div>
+
+            <div class="form-group">
+                <label>Departure Date</label>
+                <input type="date" name="departure_date">
+            </div>
+        </div>
+
+        <!-- Additional Notes -->
+        <div class="form-group">
+            <label>Special Requests / Dietary Requirements</label>
+            <textarea name="special_requests" rows="3"></textarea>
+        </div>
+
+        <div class="summary-box">
+            <strong>Selected Package:</strong>
+            <span id="packageSummary">None</span>
+        </div>
+
+        <button type="submit">Complete Registration</button>
+    </form>
+</div>
+
+<script>
+    function selectPackage(packageName) {
+        const cards = document.querySelectorAll('.package-card');
+        cards.forEach(card => card.classList.remove('active'));
+
+        const selectedCard = Array.from(cards).find(card =>
+            card.innerText.toLowerCase().includes(packageName)
+        );
+        selectedCard.classList.add('active');
+
+        document.getElementById('selectedPackage').value = packageName;
+        document.getElementById('packageSummary').innerText =
+            packageName.charAt(0).toUpperCase() + packageName.slice(1);
+
+        const accommodationSection = document.getElementById('accommodationSection');
+        if (packageName === 'diamond') {
+            accommodationSection.classList.remove('hidden');
+        } else {
+            accommodationSection.classList.add('hidden');
+        }
+    }
+
+    // Basic front-end validation
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        const selectedPackage = document.getElementById('selectedPackage').value;
+        if (!selectedPackage) {
+            alert("Please select a registration package.");
+            e.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

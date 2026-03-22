@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Successful</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0a4f8f,#1365b3);
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.success-card{
+    background:white;
+    padding:50px 60px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop{
+    0%{
+        transform:scale(0.5);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.checkmark{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    display:inline-block;
+    border:6px solid #bb1d1d;
+    position:relative;
+    animation: scaleIn 0.5s ease-in-out;
+}
+
+@keyframes scaleIn{
+    from{
+        transform:scale(0);
+    }
+    to{
+        transform:scale(1);
+    }
+}
+
+.bars{
+  position: absolute;
+  width:70px;
+  height:10px;
+  background-color: #b41212;
+  top: 55px;
+  left: 25px;
+}
+
+#bar2{
+  /* background-color: #00f2fe; */
+  transform: rotate(45deg);
+}
+
+#bar1{
+  transform: rotate(-45deg);
+}
+
+/* .checkmark::after{
+    content:'';
+    position:absolute;
+    left:47px;
+    top:28px;
+    width:25px;
+    height:50px;
+    border-right:6px solid #b41212;
+    border-bottom:6px solid #b41212;
+    transform:rotate(45deg);
+    animation: draw 0.5s 0.5s forwards;
+    opacity:0;
+} */
+
+@keyframes draw{
+    to{
+        opacity:1;
+    }
+}
+
+h1{
+    color:#333;
+    margin-top:25px;
+}
+
+p{
+    color:#777;
+    margin-top:10px;
+}
+
+.button{
+    margin-top:30px;
+    display:inline-block;
+    padding:12px 30px;
+    background:#4CAF50;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+.button:hover{
+    background:#3c9a41;
+    transform:translateY(-2px);
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="success-card">
+
+<div class="checkmark">
+  <div id="bar1" class="bars"></div>
+  <div id="bar2" class="bars"></div>
+</div>
+
+<h1>Payment Cancelled</h1>
+
+<p>Your transaction could not be completed this time.</p>
+
+<p>If you have any questions, kindly send an Email to: admin@aimsda.com</p>
+
+<a href="/" class="button">Return to Home</a>
+
+</div>
+
+</body>
+</html>

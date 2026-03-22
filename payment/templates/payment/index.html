@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIMSDA | Conference 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'payment/styles/index.css' %}">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    {% include "./partials/navbar.html" %}
+<header>
+    <h1>Action for Improved Medical Services & Delivery for Africa Conference</h1>
+    <h2>AIMSDA Conference </h2>
+    <p>
+        Showcasing advanced medical equipment, life-saving vaccines, and innovative healthcare accessories.
+    </p>
+    <a href="#conference" class="btn">Explore Conference</a>
+    <br><br>
+    <div>
+        <a href="/registration" class="btn">Register Now</a>
+    </div>
+</header>
+
+<section>
+    <div class="section-title" data-aos="fade-down">
+        <h2>About Us</h2>
+    </div>
+    <p data-aos="fade-up" data-aos-delay="200" style="text-align:center; max-width:800px; margin:auto;">
+        We supply and showcase cutting-edge medical equipment and vaccines
+        to improve healthcare delivery across neighbouring countries.
+    </p>
+</section>
+
+<section>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Our Showcase</h2>
+    </div>
+
+    <div class="grid">
+        <div class="card" data-aos="zoom-in">
+            <img src="https://img.icons8.com/ios-filled/100/00a86b/syringe.png">
+            <h3>Vaccines</h3>
+            <p>Certified vaccines for global immunization programs.</p>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="150">
+            <img src="https://img.icons8.com/ios-filled/100/00a86b/heart-monitor.png">
+            <h3>Diagnostic Equipment</h3>
+            <p>Advanced imaging and monitoring systems.</p>
+        </div>
+
+        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+            <img src="https://img.icons8.com/ios-filled/100/00a86b/hospital-room.png">
+            <h3>Hospital Equipment</h3>
+            <p>Modern surgical and clinical tools.</p>
+        </div>
+    </div>
+</section>
+
+<section id="conference">
+    <div class="conference" data-aos="fade-up">
+        <h3>International Medical Equipment Conference 2026</h3>
+        <p><strong>June 14 – June 20, 2026</strong></p>
+
+        <div class="countdown" id="countdown"></div>
+
+        <p>
+            A 7-day exhibition welcoming participants from neighbouring countries
+            to explore groundbreaking healthcare innovations.
+        </p>
+
+        <br>
+        <a href="/registration" class="btn">Register Now</a>
+    </div>
+</section>
+
+{% include "./partials/footer.html" %}
+
+<!-- AOS Script -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: false
+    });
+
+    // Countdown Timer
+    const countdown = document.getElementById("countdown");
+    const eventDate = new Date("June 14, 2026 00:00:00").getTime();
+
+    setInterval(function() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdown.innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            countdown.innerHTML = "The Conference Has Started!";
+        }
+    }, 1000);
+</script>
+
+</body>
+</html>
